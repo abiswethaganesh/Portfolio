@@ -538,9 +538,84 @@ form .send-btn:hover{
   cursor: pointer;
 }
 
+/* ---------- MOBILE RESPONSIVE FIXES ---------- */
+@media (max-width: 768px) {
+
+  /* Reduce padding for all sections */
+  section {
+    padding: 3rem 4%;
+  }
+
+  /* HOME SECTION */
+  .home {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  .home-img img {
+    width: 60vw;
+    height: 60vw;
+  }
+  .home-content h1 {
+    font-size: 3.8rem;
+  }
+  .home-content p {
+    font-size: 1.6rem;
+  }
+
+  /* NAVBAR */
+  .header {
+    padding: 2rem 5%;
+  }
+  #menu-icon {
+    display: block;
+  }
+
+  .navbar {
+    width: 70%;
+  }
+
+  /* Skills boxes */
+  .skills .row .col {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .skills .bar .info {
+    width: 80px;
+    height: 80px;
+    font-size: 1.2rem;
+    margin: 10px;
+  }
+
+  /* Education Timeline */
+  .education .container {
+    width: 100%;
+    padding-left: 5rem;
+    padding-right: 2rem;
+  }
+  .education .timeline::after {
+    left: 30px;
+  }
+  .education .container::after {
+    left: -10px;
+  }
+
+  /* Piano keys shrink */
+  #pianoGame .key {
+    width: 60px !important;
+    height: 140px !important;
+    font-size: 16px !important;
+  }
+
+  /* Contact form */
+  .contact .contact-form form {
+    width: 90%;
+  }
+}
 
 
 .footer{
   
   
+
 }
