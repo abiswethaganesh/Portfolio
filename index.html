@@ -218,7 +218,7 @@
     <div class="game-title" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">
       <i class="fas fa-music" style="background:#071214;color:#00d5ff;padding:8px;border-radius:8px;font-size:18px"></i>
       <div>
-        <h1 style="color: #00d5ff;font-size: 25px;">Fun Activity</h3>
+        <h1 style="color: #00d5ff;font-size: 25px;">Fun Activity</h1>
         <strong style="font-size: 20px;">Play the Right Notes</strong>
         <div class="small" style="color:#bfc7c9;font-size:15px;">Repeat short melodies.</div>
       </div>
@@ -228,7 +228,20 @@
     <center><p style="font-size: 15px;font-family: 'Agency FB',  sans-serif;letter-spacing: 1px;
             text-shadow: 0 0 8px #00d5ff">Ready for a quick challenge?<br>
             Follow the notes, repeat the pattern, and climb the levels in this mini piano game.<br>
-            Let’s see how good your reflexes are!</p></center><br><br><br>
+            Let’s see how good your reflexes are!</p></center>
+    <!-- Piano descriptions (place inside .pianoSection near the tiles) -->
+<div class="piano-descriptions">
+  <div class="piano-desc slide-in-left">
+    <h4>Ready for a quick challenge?</h4>
+    <p>Follow the notes, repeat the pattern, and climb the levels in this mini piano game. It’s a fun way to warm up your ears and sharpen your reflexes — press <strong>Start</strong> to begin!</p>
+  </div>
+
+  <div class="piano-desc slide-in-right">
+    <h4>Game tips & modes</h4>
+    <p>Try <strong>Strict</strong> mode for a tougher challenge — one mistake and you restart. Pause anytime, and try to beat your highest level. Have fun!</p>
+  </div>
+</div>
+
     <div id="pianoGame" class="piano" style="display:flex;gap:14px;align-items:flex-end;justify-content:center;padding:18px;">
       <div class="key" data-note="C" title="C" style="width:90px;height:200px;border-radius:12px;background:#fff;color:#000;display:flex;align-items:flex-end;justify-content:center;font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.6);">C</div>
       <div class="key" data-note="D" title="D" style="width:90px;height:200px;border-radius:12px;background:#fff;color:#000;display:flex;align-items:flex-end;justify-content:center;font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.6);">D</div>
@@ -244,13 +257,67 @@
     </div>
 
     <div class="status" id="pianoStatus" style="text-align:center;color:#bfc7c9;font-size:14px;margin-top:10px;">Press <strong>Start</strong> to begin</div>
+
+<!-- Piano Video Tiles (inside your existing pianoSection) -->
+<div class="piano-videos">
+  <div class="pv-header">
+    <h3>My Piano Clips</h3>
+    <div class="pv-sub">Use arrows to scroll sideways. Click a tile to watch.</div>
+  </div>
+
+  <div class="pv-wrap">
+    <button class="pv-arrow pv-prev">⟨</button>
+
+    <div class="pv-track-wrap">
+      <ul class="pv-track">
+
+        <!-- Tile 1 -->
+        <li class="pv-tile" data-title="They Call this LOVE">
+          <video class="pv-video" src="clip1.mp4" muted loop playsinline></video>
+          <div class="pv-title">They Call this LOVE</div>
+        </li>
+
+        <!-- Tile 2 -->
+        <li class="pv-tile" data-title="I Like me better">
+          <video class="pv-video" src="clip2.mp4" muted loop playsinline></video>
+          <div class="pv-title">I Like me better</div>
+        </li>
+
+        <!-- Tile 3 -->
+        <li class="pv-tile" data-title="Poove Sempoove">
+          <video class="pv-video" src="clip3.mp4" muted loop playsinline></video>
+          <div class="pv-title">Poove Sempoove</div>
+        </li>
+
+        <!-- Tile 4 -->
+        <li class="pv-tile" data-title="Until I Found You">
+          <video class="pv-video" src="clip4.mp4" muted loop playsinline></video>
+          <div class="pv-title">Until I Found You</div>
+        </li>
+
+        <!-- Tile 5 -->
+        <li class="pv-tile" data-title="Mia and Seb's Theme">
+          <video class="pv-video" src="clip5.mp4" muted loop playsinline></video>
+          <div class="pv-title">Mia and Seb's Theme</div>
+        </li>
+
+      </ul>
+    </div>
+
+    <button class="pv-arrow pv-next">⟩</button>
+  </div>
+
+  <div class="pv-tip">Click a tile to hear. Only one video plays at a time.</div>
+</div>
+
 </section>
+
 <section class="contact" id="contact">
     <div class="center-text">
         <h2>Contact <span>Me</span></h2>
     </div>
 
-    <div class="contact-form"><form action="https://formspree.io/f/mldznrzz" method="POST">
+    <div class="contact-form"><form  action="https://formspree.io/f/mldznrzz" method="POST">
   <input name="name" type="text" placeholder="Your Name" required>
   <input name="email" type="email" placeholder="Email Address" required>
   <textarea name="message" cols="30" rows="15" placeholder="Write Message Here..." required></textarea>
@@ -270,5 +337,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
