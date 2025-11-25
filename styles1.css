@@ -127,8 +127,9 @@ section{
   background: linear-gradient(to top, rgba(30,35,38,.8), rgba(30,35,38,1)),
   url(10.jpg);
   background-size: cover;
-
+  background-position: center;
 }
+
 .home .home-content h1{
   font-size: 6rem;
   font-weight: 700;
@@ -258,6 +259,7 @@ span{
   background: linear-gradient(to top, rgba(30,35,38,.8), rgba(30,35,38,1)),
   url(13.jpg);
   background-size: cover;
+  background-position: center;
 }
 .skills .row .col{
   display: flex;
@@ -332,26 +334,32 @@ span{
   background: linear-gradient(to top, rgba(23, 26, 28, 0.8), rgba(30,35,38,1)),
   url(edupic1.gif);
   background-size: cover;
+  background-position: center;
 }
 
 
-
-.education.timeline{
-  position:relative;
+/* TIMELINE - fixed: select .timeline inside .education, keep positioned parent and sane z-index */
+.education .timeline {
+  position: relative;        /* important — make pseudo-element position relative to this */
   max-width: 1200px;
-  margin:0 auto;
+  margin: 0 auto;
 }
+
+/* vertical line inside the education section only */
 .education .timeline::after{
   content: '';
   position: absolute;
-  width:6px;
+  width: 6px;
+  height: calc(100% - 30px); /* keep it inside the section (optional tweak) */
   background: var(--main-color);
-  top:50;
-  bottom: 0;
-  left:50%;
-  margin-left: -3px;
-  z-index: -2px;
+  top: 15px;                 /* adjust to match your layout */
+  left: 50%;
+  transform: translateX(-50%); /* centers it properly */
+  z-index: 0;                /* non-negative — avoid stacking surprises */
+  border-radius: 4px;        /* slightly soften edges */
+  pointer-events: none;
 }
+
 .education .container{
   padding:10px 40px;
   position: relative;
@@ -374,9 +382,31 @@ span{
   text-align: center;
   font-weight:600;
   font-family: "Font Awesome\ 5 Free";
-  color: black
-
+  color: black;
+  box-shadow: 0 0 0 0 rgba(0,212,255,0.28);
+  animation: pulseRadiant 1.8s infinite ease-out;
 }
+
+.education, .education .timeline, .education .container {
+  overflow: visible !important;    /* allow halo to show */
+}
+
+/* radiating animation */
+@keyframes pulseRadiant {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0,212,255,0.28);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 18px rgba(0,212,255,0.12);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0,212,255,0);
+  }
+}
+
 .education .left{
   left:0;
 
@@ -386,6 +416,176 @@ span{
   background: linear-gradient(to top, rgba(23, 26, 28, 0.8), rgba(30,35,38,1)),
   url(pianopic1.gif);
   background-size: cover;
+  background-position: center;
+}
+/* Piano description container */
+.piano-descriptions {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.5rem;
+  align-items: flex-start;
+  padding: 2rem 9%;
+  color: #cfefff;
+  pointer-events: none; /* descriptions don't block clicks on the game underneath */
+}
+.piano-desc {
+  width: 40%;
+  background: linear-gradient(135deg, rgba(10,12,14,0.35), rgba(8,10,12,0.25));
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 8px 30px rgba(0,213,255,0.06), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,213,255,0.06);
+  backdrop-filter: blur(4px);
+  pointer-events: auto; /* allow selection if needed */
+}
+.piano-desc h4 {
+  margin: 0 0 0.6rem;
+  color: var(--main-color);
+  font-size: 1.8rem;
+  letter-spacing: 0.2px;
+}
+.piano-desc p {
+  margin: 0;
+  color: #bfc7c9;
+  line-height: 1.5;
+  font-size: 1.4rem;
+}/* ---------- Piano Videos Carousel ---------- */
+.piano-videos { padding: 2.8rem 9%; color: #cfefff; }
+.pv-header { margin-bottom: .6rem; }
+.pv-header h3 { color: var(--main-color); font-size: 2.2rem; margin: 0 0 .2rem; }
+.pv-sub { color: #bfc7c9; font-size: 1.3rem; margin-bottom: .8rem; }
+
+.pv-wrap { display:flex; align-items:center; gap:1rem; }
+.pv-track-wrap { overflow:hidden; flex:1; }
+.pv-track { display:flex; gap:1rem; list-style:none; padding:0; margin:0; transition:transform .36s ease; }
+/* Add this to your existing .pv-tile styles or create new rule */
+.pv-tile.playing {
+  transform: scale(1.25);
+  z-index: 20;
+  box-shadow: 0 20px 50px rgba(0,213,255,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* tile */
+.pv-tile {
+  width: 220px; flex: 0 0 auto; border-radius: 14px; overflow:hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6); background:#08090a; position:relative;
+  transform-origin:center; transition: transform .22s ease, box-shadow .22s ease;
+  cursor: pointer;
+}
+.pv-tile.active { transform: scale(1.06); z-index: 10; box-shadow: 0 20px 40px rgba(0,213,255,0.12); }
+.pv-tile.popped { transform: scale(1.14); box-shadow: 0 26px 60px rgba(0,213,255,0.14); }
+
+/* video */
+.pv-video { display:block; width:100%; height:140px; object-fit:cover; background:#111; }
+
+/* overlay (title + play) */
+.pv-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.75) 100%);
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.pv-title { 
+  color: #e7f8ff; 
+  font-size: 1.2rem; 
+  font-weight:600; 
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  white-space:nowrap; }
+.pv-play {
+
+  background: rgba(255,255,255,0.06); color: var(--main-color); border: 1px solid rgba(0,213,255,0.12);
+  width:36px; height:36px; border-radius:8px; font-size:16px; cursor:pointer;
+}
+
+/* arrows */
+.pv-arrow {
+  background:transparent; border:2px solid rgba(0,213,255,0.12); color:var(--main-color);
+  width:48px;height:48px;border-radius:12px;font-size:26px;cursor:pointer;
+}
+.pv-arrow:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,213,255,0.08); }
+
+/* tip */
+.pv-tip { color:#9fbcc7; margin-top:.6rem; font-size:1.2rem; }
+
+/* responsive */
+@media (max-width: 920px) {
+  .pv-tile { width: 180px; }
+  .pv-video { height:120px; }
+  .pv-header h3 { font-size:1.6rem; }
+}
+@media (max-width: 560px) {
+  .pv-tile { width: 150px; }
+  .pv-video { height: 100px; }
+  .pv-wrap { gap:.6rem; }
+  .pv-arrow { width:40px; height:40px; }
+}
+
+
+/* Slide & fade animations */
+@keyframes slideInLeft {
+  from { transform: translateX(-18px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(18px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+.slide-in-left  { animation: slideInLeft 600ms cubic-bezier(.2,.9,.2,1) both; }
+.slide-in-right { animation: slideInRight 600ms cubic-bezier(.2,.9,.2,1) both; }
+
+/* smaller screens: stack vertically */
+@media (max-width: 900px) {
+  .piano-descriptions { flex-direction: column; gap: 1rem; padding: 1.6rem; }
+  .piano-desc { width: 100%; }
+}
+
+/* Piano videos carousel */
+.piano-videos { padding: 3rem 9%; color: #cfefff; }
+.pv-header h3 { color: var(--main-color); font-size: 2.2rem; margin: 0 0 .4rem; }
+.pv-sub { margin: 0 0 1rem; color: #bfc7c9; font-size: 1.4rem; }
+
+/* layout */
+.pv-wrap { display:flex; align-items:center; gap:1rem; }
+.pv-track-wrap { overflow:hidden; flex:1; }
+.pv-track { display:flex; gap:1rem; list-style:none; padding:0; margin:0; transition:transform .36s ease; }
+
+/* tile */
+.pv-tile { width: 200px; flex: 0 0 auto; border-radius: 14px; overflow:hidden;
+           box-shadow: 0 10px 30px rgba(0,0,0,0.6); background:#0b0c0d; position:relative;
+           transform-origin:center; transition: transform .22s ease, box-shadow .22s ease; }
+.pv-tile.active { transform: scale(1.08); z-index: 10; box-shadow: 0 20px 40px rgba(0,213,255,0.14); }
+
+/* video styling */
+.pv-video { display:block; width:100%; height:120px; object-fit:cover; background:#111; }
+
+/* arrow */
+.pv-arrow { background:transparent; border:2px solid rgba(0,213,255,0.18); color:var(--main-color);
+           width:48px;height:48px;border-radius:12px;font-size:26px;cursor:pointer; }
+.pv-arrow:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,213,255,0.08); }
+
+/* responsive: smaller tiles on mobile */
+@media (max-width: 760px){
+  .pv-tile { width: 150px; }
+  .pv-video { height:100px; }
+  .pv-header h3 { font-size:1.6rem; }
+}
+.pv-title {
+  position:absolute;
+  bottom:8px;
+  left:10px;
+  background:rgba(0,0,0,0.55);
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:1.3rem;
+  color:#fff;
+  opacity:0;
+  transform:translateY(4px);
+  transition:0.2s ease;
+}
+
+.pv-tile:hover .pv-title {
+  opacity:1;
+  transform:translateY(0);
 }
 
 
@@ -424,7 +624,16 @@ span{
   background: var(--main-color);
   position: relative;
   border-radius: 6px;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  transform-origin: center;
 }
+
+.education .content:hover,
+.education .content:focus-within{
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 14px 30px rgba(2,6,23,0.38);
+}
+
 .education .content .tag{
   font-size: 1.5rem;
   padding-top: 1.5rem;
@@ -449,9 +658,7 @@ span{
     margin-top:2rem;
   }
   .education .timeline::after{
-     left:31px
-    
-
+     left:31px;
   }
   .education .container{
     width:100%;
@@ -461,6 +668,7 @@ span{
   .education .container::after{
     font-size:2.2rem;
   }
+  
   .education .container::before{
     left:61px;
     border:medium solid var(--main-color);
@@ -478,6 +686,7 @@ span{
     left:0%;
   }
 }
+
 .education .heading{
   font-size: 3.5rem;
 }
@@ -496,6 +705,7 @@ span{
   background: linear-gradient(to top, rgba(23, 26, 28, 0.8), rgba(30,35,38,1)),
   url(con2.png);
   background-size: cover;
+  background-position: center;
 
 }
 .contact .contact-form form{
@@ -537,6 +747,7 @@ form .send-btn:hover{
   box-shadow: 0 0 20px var(--main-color);
   cursor: pointer;
 }
+
 
 /* ---------- MOBILE RESPONSIVE FIXES ---------- */
 @media (max-width: 768px) {
@@ -613,9 +824,7 @@ form .send-btn:hover{
   }
 }
 
-
 .footer{
   
   
-
 }
